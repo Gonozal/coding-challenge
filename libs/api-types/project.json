@@ -1,0 +1,16 @@
+{
+  "name": "api-types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api-types/src",
+  "projectType": "library",
+  "targets": {
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/api-types/src",
+        "command": "npx openapi-typescript http://localhost:3000/docs-json -o ./generated/schema.d.ts"
+      }
+    }
+  },
+  "tags": []
+}
