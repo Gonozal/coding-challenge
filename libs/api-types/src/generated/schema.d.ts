@@ -9,6 +9,12 @@ export interface paths {
     get: operations["UserController_findAll"];
     post: operations["UserController_create"];
   };
+  "/api/user/me": {
+    get: operations["UserController_me"];
+  };
+  "/api/user/login": {
+    post: operations["UserController_login"];
+  };
   "/api/time-entry": {
     get: operations["TimeEntryController_findAll"];
     post: operations["TimeEntryController_create"];
@@ -31,12 +37,6 @@ export interface components {
     CreateUserDto: {
       email: string;
     };
-    CreateTimeEntryDto: {
-      /** Format: date-time */
-      startedAt: string;
-      /** Format: date-time */
-      finishedAt: string;
-    };
     TimeEntry: {
       id: number;
       /** Format: date-time */
@@ -49,6 +49,24 @@ export interface components {
       createdAt: string;
       /** Format: date-time */
       updatedAt: string;
+    };
+    User: {
+      id: number;
+      email: string;
+      timeEntries?: (components["schemas"]["TimeEntry"])[];
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
+    };
+    AuthenticateUserDto: {
+      email: string;
+    };
+    CreateTimeEntryDto: {
+      /** Format: date-time */
+      startedAt: string;
+      /** Format: date-time */
+      finishedAt: string;
     };
     UpdateTimeEntryDto: {
       /** Format: date-time */
@@ -70,7 +88,11 @@ export interface operations {
 
   UserController_findAll: {
     responses: {
-      200: never;
+      200: {
+        content: {
+          "application/json": (components["schemas"]["User"])[];
+        };
+      };
     };
   };
   UserController_create: {
@@ -80,7 +102,34 @@ export interface operations {
       };
     };
     responses: {
-      201: never;
+      201: {
+        content: {
+          "application/json": components["schemas"]["User"];
+        };
+      };
+    };
+  };
+  UserController_me: {
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["User"];
+        };
+      };
+    };
+  };
+  UserController_login: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AuthenticateUserDto"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["User"];
+        };
+      };
     };
   };
   TimeEntryController_findAll: {

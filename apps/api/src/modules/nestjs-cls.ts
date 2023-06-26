@@ -1,3 +1,5 @@
+import { getUserId } from '@fc/cookies/server';
+
 import { ClsModule, ClsStore } from 'nestjs-cls';
 
 export const NestClsConfig = ClsModule.forRoot({
@@ -9,9 +11,11 @@ export const NestClsConfig = ClsModule.forRoot({
     // and use the setup method to
     // provide default store values.
     setup: (cls, req) => {
-      if (!req.headers['x-user-id']) return;
+      const userId = getUserId(req);
 
-      cls.set('userId', parseInt(req.headers['x-user-id']));
+      if (!userId) return;
+
+      cls.set('userId', parseInt(userId, 10));
     },
   },
 });

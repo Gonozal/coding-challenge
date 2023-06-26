@@ -1,1 +1,1 @@
-export type * from './generated/schema';
+export * from './client';

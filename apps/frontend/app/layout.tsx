@@ -1,4 +1,7 @@
+import { CookiesContextProvider } from '@fc/cookies';
 import './global.css';
+import { Navigation } from './(navigation)/navigation';
+import { RefreshHelper } from './refresh-helper';
 
 export const metadata = {
   title: 'Welcome to fc',
@@ -12,7 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <CookiesContextProvider>
+          <Navigation>{children}</Navigation>
+        </CookiesContextProvider>
+      </body>
     </html>
   );
 }

@@ -5,7 +5,9 @@ import { DeepPartial } from 'typeorm';
 export const mockUserService: () => UserService = jest.fn(() => {
   const controller: DeepPartial<UserService> = {
     create: jest.fn((entity) => entity),
-    findAll: jest.fn(() => ({})),
+    findAll: jest.fn(() => []),
+    getLoggedInUser: jest.fn(() => ({})),
+    authenticateUser: jest.fn(() => ({})),
   };
 
   return controller as UserService;
@@ -37,6 +39,22 @@ describe('UserController', () => {
       await controller.findAll();
 
       expect(service.findAll).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('me', () => {
+    it('should call the UserService getLoggedInUser function', async () => {
+      await controller.me();
+
+      expect(service.getLoggedInUser).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('login', () => {
+    it('should call the UserService authenticateUser function', async () => {
+      await controller.login({ email: 'a1@example.com' });
+
+      expect(service.authenticateUser).toHaveBeenCalledTimes(1);
     });
   });
 });

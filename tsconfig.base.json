@@ -17,7 +17,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fc/api-types": ["libs/api-types/src/index.ts"]
+      "@fc/api-types": ["libs/api-types/src/index.ts"],
+      "@fc/cookies": ["libs/cookies/src/index.ts"],
+      "@fc/cookies/server": ["libs/cookies/src/server.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
