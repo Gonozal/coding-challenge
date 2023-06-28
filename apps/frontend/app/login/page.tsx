@@ -1,5 +1,5 @@
-import { Login } from './login';
-import { Register } from './register';
+import { Login } from './components/login';
+import { Register } from './components/register';
 
 export default async function LoginPage() {
   return (

@@ -7,10 +7,11 @@ export const Navigation = async ({ children }: PropsWithChildren) => {
   return (
     <>
       <nav className={styles.navigation}>
-        <div>
-          <Link href="/">Time Tracking</Link>
+        <div className={styles.navSegment}>
+          <Link href="/">Home</Link>
+          <Link href="/time-tracking">Time Tracking</Link>
         </div>
-        <div>
+        <div className={styles.navSegment}>
           <CurrentUser />
         </div>
       </nav>

@@ -9,6 +9,7 @@ const { composePlugins, withNx } = require('@nx/next');
 const nextConfig = {
   experimental: {
     serverActions: true,
+    typedRoutes: true,
   },
   nx: {
     // Set this to true if you would like to use SVGR

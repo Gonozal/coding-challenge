@@ -1,7 +1,6 @@
 import { CookiesContextProvider } from '@fc/cookies';
 import './global.css';
-import { Navigation } from './(navigation)/navigation';
-import { RefreshHelper } from './refresh-helper';
+import { Navigation } from './components/navigation';
 
 export const metadata = {
   title: 'Welcome to fc',
