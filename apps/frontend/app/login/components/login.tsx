@@ -2,15 +2,19 @@ import { post } from '@fc/api-types';
 import { setUserCookie } from '@fc/cookies/server';
 import { SubmitButton } from './submit-button';
 import { redirect } from 'next/navigation';
+import { zfd } from 'zod-form-data';
+import { AuthenticateUserSchema } from '@fc/dto-schemas';
+
+const formDataSchema = zfd.formData(AuthenticateUserSchema);
 
 export const Login = () => {
   async function login(formData: FormData): Promise<void> {
     'use server';
 
-    const email = formData.get('email')?.toString() || '';
+    const body = formDataSchema.parse(formData);
 
     const user = await post('/api/user/login', {
-      body: { email },
+      body,
     });
 
     if (user.data) {

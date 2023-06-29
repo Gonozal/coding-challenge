@@ -17,7 +17,6 @@ export class TimeEntryService {
 
   public create(newTimeEntry: DeepPartial<TimeEntry>): Promise<TimeEntry> {
     const userId = this.cls.get('userId');
-    console.log({ userId });
 
     const timeEntry = this.timeEntryRepository.create({
       ...newTimeEntry,

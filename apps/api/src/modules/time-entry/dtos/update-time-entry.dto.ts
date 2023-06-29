@@ -1,14 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsISO8601, IsOptional } from 'class-validator';
+import { createZodDto } from '@anatine/zod-nestjs';
+import { extendApi } from '@anatine/zod-openapi';
 
-export class UpdateTimeEntryDto {
-  @IsISO8601({ strict: true })
-  @IsOptional()
-  @ApiProperty({ nullable: true })
-  startedAt?: Date;
+import { UpdateTimeEntrySchema } from '@fc/dto-schemas';
 
-  @IsISO8601({ strict: true })
-  @IsOptional()
-  @ApiProperty({ nullable: true })
-  finishedAt?: Date;
-}
+const UpdateTimeEntry = extendApi(UpdateTimeEntrySchema);
+
+export class UpdateTimeEntryDto extends createZodDto(UpdateTimeEntry) {}

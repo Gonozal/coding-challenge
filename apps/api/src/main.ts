@@ -1,11 +1,10 @@
-declare const module: any;
-
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from './modules/app.module';
+import { ZodValidationPipe, patchNestjsSwagger } from '@anatine/zod-nestjs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,13 +12,7 @@ async function bootstrap() {
 
   app.use(cookieParser());
   app.setGlobalPrefix(globalPrefix);
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      transform: true,
-      forbidNonWhitelisted: true,
-    })
-  );
+  app.useGlobalPipes(new ZodValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Time Tracking App')
     .setDescription(
@@ -27,6 +20,8 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .build();
+
+  patchNestjsSwagger();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
@@ -35,11 +30,6 @@ async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
-
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
 }
 
 bootstrap();

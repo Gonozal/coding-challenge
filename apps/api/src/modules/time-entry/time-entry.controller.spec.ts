@@ -28,8 +28,8 @@ describe('TimeEntryController', () => {
   describe('create', () => {
     it('should call the TimeEntryService create function', async () => {
       await controller.create({
-        startedAt: new Date(),
-        finishedAt: new Date(),
+        startedAt: new Date().toISOString(),
+        finishedAt: new Date().toISOString(),
       });
 
       expect(service.create).toHaveBeenCalledTimes(1);

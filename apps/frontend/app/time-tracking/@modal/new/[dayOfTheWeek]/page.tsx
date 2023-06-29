@@ -7,23 +7,19 @@ import { redirect } from 'next/navigation';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod';
 import styles from './page.module.scss';
+import { CreateTimeEntrySchema } from '@fc/dto-schemas';
 
-const TimeEntry = zfd.formData({
-  startedAt: zfd.text(z.string().datetime()),
-  finishedAt: zfd.text(z.string().datetime()),
-});
+const formDataSchema = zfd.formData(CreateTimeEntrySchema);
 
 export default function Modal({
   params: { dayOfTheWeek },
-  errors,
 }: {
   params: { dayOfTheWeek: string };
-  errors: any;
 }) {
   async function addTimeEntry(formData: FormData): Promise<void> {
     'use server';
     const userId = getUserCookie() || '';
-    const body = TimeEntry.parse(formData);
+    const body = formDataSchema.parse(formData);
 
     const timeEntry = await post('/api/time-entry', {
       body,
@@ -34,8 +30,6 @@ export default function Modal({
       redirect('/time-tracking');
     }
   }
-
-  console.log(errors);
 
   const now = new Date();
 

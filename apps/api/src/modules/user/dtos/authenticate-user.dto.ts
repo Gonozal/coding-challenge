@@ -1,8 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail } from 'class-validator';
+import { createZodDto } from '@anatine/zod-nestjs';
+import { extendApi } from '@anatine/zod-openapi';
 
-export class AuthenticateUserDto {
-  @IsEmail()
-  @ApiProperty()
-  email!: string;
-}
+import { AuthenticateUserSchema } from '@fc/dto-schemas';
+
+const AuthenticateUser = extendApi(AuthenticateUserSchema);
+
+export class AuthenticateUserDto extends createZodDto(AuthenticateUser) {}

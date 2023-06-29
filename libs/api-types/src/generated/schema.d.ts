@@ -35,6 +35,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     CreateUserDto: {
+      /** Format: email */
       email: string;
     };
     TimeEntry: {
@@ -60,6 +61,7 @@ export interface components {
       updatedAt: string;
     };
     AuthenticateUserDto: {
+      /** Format: email */
       email: string;
     };
     CreateTimeEntryDto: {
@@ -70,9 +72,9 @@ export interface components {
     };
     UpdateTimeEntryDto: {
       /** Format: date-time */
-      startedAt: string | null;
+      startedAt?: string;
       /** Format: date-time */
-      finishedAt: string | null;
+      finishedAt?: string;
     };
   };
   responses: never;
