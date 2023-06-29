@@ -4,12 +4,8 @@ import { getUserCookie } from '@fc/cookies/server';
 import { add, endOfDay, format, startOfWeek, sub } from 'date-fns';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { zfd } from 'zod-form-data';
-import { z } from 'zod';
 import styles from './page.module.scss';
 import { CreateTimeEntrySchema } from '@fc/dto-schemas';
-
-const formDataSchema = zfd.formData(CreateTimeEntrySchema);
 
 export default function Modal({
   params: { dayOfTheWeek },
@@ -19,7 +15,17 @@ export default function Modal({
   async function addTimeEntry(formData: FormData): Promise<void> {
     'use server';
     const userId = getUserCookie() || '';
-    const body = formDataSchema.parse(formData);
+
+    const data = {
+      finishedAt: new Date(
+        formData.get('finishedAt')?.toString() || ''
+      ).toISOString(),
+      startedAt: new Date(
+        formData.get('startedAt')?.toString() || ''
+      ).toISOString(),
+    };
+
+    const body = CreateTimeEntrySchema.parse(data);
 
     const timeEntry = await post('/api/time-entry', {
       body,

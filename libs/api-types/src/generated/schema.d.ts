@@ -135,6 +135,11 @@ export interface operations {
     };
   };
   TimeEntryController_findAll: {
+    parameters: {
+      query?: {
+        week?: number;
+      };
+    };
     responses: {
       200: {
         content: {

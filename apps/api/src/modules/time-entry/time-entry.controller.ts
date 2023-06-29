@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { TimeEntryService } from './time-entry.service';
 import { CreateTimeEntryDto } from './dtos/create-time-entry.dto';
 import { UpdateTimeEntryDto } from './dtos/update-time-entry.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { TimeEntry } from './time-entry.entity';
+import { FindTimeEntryDto } from './dtos/find-time-entry.dto';
 
 @Controller('time-entry')
 @ApiTags('time-entry')
@@ -44,15 +46,15 @@ export class TimeEntryController {
   @ApiOkResponse({ type: TimeEntry })
   update(
     @Param('id') id: number,
-    @Body() UpdateTimeEntryDto: UpdateTimeEntryDto
+    @Body() updateTimeEntryDto: UpdateTimeEntryDto
   ) {
-    return this.timeEntryService.update({ ...UpdateTimeEntryDto, id });
+    return this.timeEntryService.update({ ...updateTimeEntryDto, id });
   }
 
   @Get()
   @HttpCode(200)
   @ApiOkResponse({ type: [TimeEntry] })
-  findAll() {
-    return this.timeEntryService.findAll();
+  findAll(@Query() findTimeEntryDto?: FindTimeEntryDto) {
+    return this.timeEntryService.findAll(findTimeEntryDto);
   }
 }

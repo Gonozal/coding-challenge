@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 describe('POST /api/time-entry', () => {
   let userId: string;
@@ -26,11 +26,7 @@ describe('POST /api/time-entry', () => {
 
       expect(res.status).toBe(201);
     } catch (e) {
-      const error = e as AxiosError;
-
-      console.log(error.request);
-
-      console.log(error.response);
+      return;
     }
   });
 

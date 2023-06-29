@@ -9,6 +9,11 @@ import {
 import { User } from '../user/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
+/*
+ * It would probably be useful to add additional computed properties to this
+ * entity to make reads faster. E.g. individual columns for the day, week and year
+ * of the entry.
+ */
 @Entity()
 export class TimeEntry {
   // I prefer non-enumerable IDs, but for now this will have to do
