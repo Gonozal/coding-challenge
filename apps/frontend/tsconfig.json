@@ -29,7 +29,8 @@
     "../../apps/fc/.next/types/**/*.ts",
     "../../dist/apps/fc/.next/types/**/*.ts",
     "next-env.d.ts",
-    "../../apps/frontend/.next/types/**/*.ts"
+    "../../apps/frontend/.next/types/**/*.ts",
+    "../../dist/apps/frontend/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

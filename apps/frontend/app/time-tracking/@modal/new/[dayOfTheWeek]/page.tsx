@@ -7,6 +7,10 @@ import { redirect } from 'next/navigation';
 import styles from './page.module.scss';
 import { CreateTimeEntrySchema } from '@fc/dto-schemas';
 
+export const metadata = {
+  title: 'Coding Challenge | New Time Entry',
+};
+
 export default function Modal({
   params: { dayOfTheWeek },
 }: {

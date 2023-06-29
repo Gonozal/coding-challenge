@@ -9,6 +9,10 @@ import {
 import styles from './page.module.scss';
 import { DayElement } from './components/day-element';
 
+export const metadata = {
+  title: 'Coding Challenge | Time Tracking',
+};
+
 export default async function IndexPage() {
   // This is a server component and not updated after the initial render
   // unless navigation happens, `refresh()` is called or similar.
